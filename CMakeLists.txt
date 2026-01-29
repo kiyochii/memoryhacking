@@ -36,3 +36,6 @@ target_include_directories(imgui_app PRIVATE
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 target_link_libraries(imgui_app PRIVATE glfw OpenGL::GL)
+
+# 6. Copy fonts to build directory
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/misc" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
