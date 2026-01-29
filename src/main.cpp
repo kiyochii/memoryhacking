@@ -3,9 +3,7 @@
 int main() 
 {
     GUI ui;
-    ui.initThread();
-    while(true){
-        
-    }
+    //initializing another threads
+    ui.run();
     return 0;
 };

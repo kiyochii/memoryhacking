@@ -1,19 +1,17 @@
 #include "gui.h"
 GUI::GUI()
 {
-    // try{
-    //     CreateWindowGlfw();
-    //     InitGlfw();
-    // }
-    // catch(const std::runtime_error& e){
-    //       std::cerr << "Exception caught: " << e.what() << std::endl;
-    // }
+    try{
+         CreateWindowGlfw();
+         InitGlfw();
+     }
+     catch(const std::runtime_error& e){
+           std::cerr << "Exception caught: " << e.what() << std::endl;
+    }
 }
 void GUI::run()
 {
-    CreateWindowGlfw();
-    InitGlfw();
-    
+
     while (!glfwWindowShouldClose(window)) {
     //glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glfwPollEvents();

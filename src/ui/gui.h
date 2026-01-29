@@ -10,10 +10,10 @@ class GUI
 {
     public: 
             GUI();
+            void run();
             void initThread();
                 
     private:
-            void run();
             void InitGlfw();
             void CreateWindowGlfw();
             void destruct();
