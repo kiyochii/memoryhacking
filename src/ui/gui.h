@@ -3,14 +3,21 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
+#include <thread>
 #include <stdexcept>
 #include <iostream>
 class GUI
 {
     public: 
-        GUI();
-        void run ();
+            GUI();
+            void initThread();
+                
     private:
-        void destruct();
-        GLFWwindow* window;    
-};
+            void run();
+            void InitGlfw();
+            void CreateWindowGlfw();
+            void destruct();
+
+            GLFWwindow* window;    
+
+    };

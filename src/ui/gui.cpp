@@ -1,38 +1,19 @@
 #include "gui.h"
 GUI::GUI()
 {
-    try
-    {
-        if (!glfwInit())
-            throw std::runtime_error("glfwInit error");
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);      
-        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-
-        window = glfwCreateWindow(1280, 720, "UI", NULL, NULL);
-        if (!window)
-            throw std::runtime_error("glfwCreateWindow error");
-        
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(1);
-
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGui_ImplGlfw_InitForOpenGL(window, true);
-        ImGui_ImplOpenGL3_Init("#version 130");
-        
-
-        ImGuiIO& io = ImGui::GetIO();
-        io.IniFilename = NULL;
-    }
-    catch(const std::runtime_error& e){
-          std::cerr << "Exception caught: " << e.what() << std::endl;
-    }
+    // try{
+    //     CreateWindowGlfw();
+    //     InitGlfw();
+    // }
+    // catch(const std::runtime_error& e){
+    //       std::cerr << "Exception caught: " << e.what() << std::endl;
+    // }
 }
 void GUI::run()
 {
+    CreateWindowGlfw();
+    InitGlfw();
+    
     while (!glfwWindowShouldClose(window)) {
     //glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glfwPollEvents();
@@ -58,4 +39,36 @@ void GUI::run()
     ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
+}
+void GUI::CreateWindowGlfw(){
+        if (!glfwInit())
+        throw std::runtime_error("glfwInit error");
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);      
+        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+
+        window = glfwCreateWindow(1280, 720, "UI", NULL, NULL);
+        glfwMakeContextCurrent(window); 
+        if (!window)
+            throw std::runtime_error("glfwCreateWindow error");
+        
+        glfwSwapInterval(1);
+}
+void GUI::InitGlfw(){
+
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        ImGui_ImplOpenGL3_Init("#version 130");
+    
+        ImGuiIO& io = ImGui::GetIO();
+        io.IniFilename = NULL;
+}
+
+
+void GUI::initThread(){
+    std::thread guiThread(&GUI::run, this);
+    guiThread.detach();
 }

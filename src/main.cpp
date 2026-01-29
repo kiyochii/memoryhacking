@@ -2,7 +2,10 @@
 
 int main() 
 {
-    GUI* ui = new(GUI);
-    ui->run();    
+    GUI ui;
+    ui.initThread();
+    while(true){
+        
+    }
     return 0;
 };
